@@ -23,4 +23,9 @@ class Board
     end
     false
   end
+
+  def make_move(index, figure)
+    return false if self.grid[index] == 'O' || self.grid[index] == 'X'
+    self.grid[index] = figure
+  end
 end
