@@ -14,11 +14,10 @@ class TicTacToe
     moves = 0
  
     while (!board.finished)
-      binding.pry
       figure = current_player(moves).figure
       puts "#{board}\n"
       ask_player(moves)
-      if (board.winning_combination?(figure) || moves == 9)
+      if (board.winning_combination?(figure) || moves == 8)
         board.finished = true
         if (board.winning_combination?(figure))
             winner = current_player(moves)
