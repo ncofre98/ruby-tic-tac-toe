@@ -2,6 +2,7 @@ SQUARES = 9
 
 class Board
   attr_accessor :grid, :finished
+
   def initialize
     @finished = false
     @grid = ['*'] * SQUARES

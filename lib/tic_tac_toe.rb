@@ -12,16 +12,20 @@ class TicTacToe
   def play
     winner = nil
     moves = 0
-    while (!board.finished || moves < 9)
+ 
+    while (!board.finished)
+      figure = current_player(moves).figure
       puts "#{board}\n"
       ask_player(moves)
-      moves += 1
-      if board.winning_combination?(current_player(moves).figure)
-        #binding.pry
-        winner = current_player(moves)
-        winner += 1
+      if (board.winning_combination?(figure) || moves == 9)
         board.finished = true
+        if (board.winning_combination?(figure))
+            winner = current_player(moves)
+            winner.score += 1
+        end
+        break
       end
+      moves += 1
     end
 
     puts "#{board}\n"
@@ -31,7 +35,7 @@ class TicTacToe
   private
   def display_winner(player)
     puts "Congratulations!!!"
-    puts "#{player} WON!"
+    puts "#{player.name} WON!"
   end
 
   def display_draw
@@ -43,6 +47,7 @@ class TicTacToe
   end
 
   def ask_player(moves)
+    #binding.pry
     current_player = current_player(moves)
     puts "It's your turn #{current_player.name}"
     puts "Insert your choice (1-9)"
