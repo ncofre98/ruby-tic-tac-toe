@@ -14,6 +14,7 @@ class TicTacToe
     moves = 0
  
     while (!board.finished)
+      binding.pry
       figure = current_player(moves).figure
       puts "#{board}\n"
       ask_player(moves)
