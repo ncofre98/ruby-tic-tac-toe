@@ -1,5 +1,5 @@
 class TicTacToe
-  attr_accessor :board
+  attr_accessor :board, :player1, :player2
 
   def initialize()
     @board = Board.new
@@ -10,12 +10,22 @@ class TicTacToe
   end
 
   def play
+    winner = nil
     moves = 0
-    while (!board.finished || moves <= 9)
+    while (!board.finished || moves < 9)
       puts "#{board}\n"
       ask_player(moves)
-      break if board.winning_combination?(current_player(moves).figure)
+      moves += 1
+      if board.winning_combination?(current_player(moves).figure)
+        #binding.pry
+        winner = current_player(moves)
+        winner += 1
+        board.finished = true
+      end
     end
+
+    puts "#{board}\n"
+    winner ? display_winner(winner) : display_draw
   end
 
   private
@@ -37,12 +47,11 @@ class TicTacToe
     puts "It's your turn #{current_player.name}"
     puts "Insert your choice (1-9)"
     choice = gets.chomp.to_i - 1
-    if self.board.grid[choice].in?('X', 'O')
+    if ['X', 'O'].include?(self.board.grid[choice])
       puts "Invalid! That square is occupied. Try again"
       ask_player(moves)
     end
     make_move(choice, current_player.figure)
-    moves += 1
   end
 
   def make_move(index, figure)
