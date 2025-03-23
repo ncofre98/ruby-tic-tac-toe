@@ -7,6 +7,10 @@ class Board
     @grid = ['*'] * SQUARES
   end
 
+  def reset
+    initialize
+  end
+
   def to_s
     grid.each_with_index.reduce("") do |output, (square, index)|
       output << "\n" if index % 3 == 0 && index != 0
@@ -22,10 +26,5 @@ class Board
       return true if indexes.all? { |i| self.grid[i] == figure }
     end
     false
-  end
-
-  def make_move(index, figure)
-    return false if self.grid[index] == 'O' || self.grid[index] == 'X'
-    self.grid[index] = figure
   end
 end
