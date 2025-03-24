@@ -47,7 +47,6 @@ class TicTacToe
   end
 
   def ask_player(moves)
-    #binding.pry
     loop do
       current_player = current_player(moves)
       puts "It's your turn #{current_player.name}"
