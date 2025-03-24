@@ -48,15 +48,18 @@ class TicTacToe
 
   def ask_player(moves)
     #binding.pry
-    current_player = current_player(moves)
-    puts "It's your turn #{current_player.name}"
-    puts "Insert your choice (1-9)"
-    choice = gets.chomp.to_i - 1
-    if ['X', 'O'].include?(self.board.grid[choice])
-      puts "Invalid! That square is occupied. Try again"
-      ask_player(moves)
+    loop do
+      current_player = current_player(moves)
+      puts "It's your turn #{current_player.name}"
+      puts "Insert your choice (1-9)"
+      choice = gets.chomp.to_i - 1
+      if ['X', 'O'].include?(self.board.grid[choice])
+        puts "Invalid! That square is occupied. Try again"
+        next
+      end
+      make_move(choice, current_player.figure)
+      break
     end
-    make_move(choice, current_player.figure)
   end
 
   def make_move(index, figure)
